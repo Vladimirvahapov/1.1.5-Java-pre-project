@@ -20,6 +20,7 @@ public class UserDaoJDBCImpl implements UserDao {
         connection = util.getConnection();
     }
 
+    @Override
     public void createUsersTable() {
         try (Statement statement = connection.createStatement()) {
             statement.executeUpdate(createUsersQuery);//todo: на боевом коде ..выносятся из тела метода
@@ -29,6 +30,7 @@ public class UserDaoJDBCImpl implements UserDao {
         }
     }
 
+    @Override
     public void dropUsersTable() {
         try (Statement statement = connection.createStatement()) {
             statement.executeUpdate("DROP TABLE IF EXISTS user");
@@ -38,6 +40,7 @@ public class UserDaoJDBCImpl implements UserDao {
         }
     }
 
+    @Override
     public void saveUser(String name, String lastName, byte age) {
         try (Statement statement = connection.createStatement()) {
             String commands = String.format("INSERT INTO user (name, lastName, age) VALUES ('%s','%s', %d)", name, lastName, age);
@@ -48,6 +51,7 @@ public class UserDaoJDBCImpl implements UserDao {
         }
     }
 
+    @Override
     public void removeUserById(long id) {
         try (Statement statement = connection.createStatement()) {
             String commands = String.format("DELETE FROM user WHERE id = %d", id);
@@ -58,6 +62,7 @@ public class UserDaoJDBCImpl implements UserDao {
         }
     }
 
+    @Override
     public List<User> getAllUsers() {
         List<User> listUser = new ArrayList<>();
         try (ResultSet resultSet = connection.createStatement().executeQuery("SELECT * FROM user")) {
@@ -73,6 +78,7 @@ public class UserDaoJDBCImpl implements UserDao {
         return listUser;
     }
 
+    @Override
     public void cleanUsersTable() {
         try (Statement statement = connection.createStatement()) {
             statement.executeUpdate("TRUNCATE TABLE user");

@@ -66,4 +66,23 @@ public class User {
         return name + " " + lastName + " " + age;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User userTwo = (User) o;
+        return id == userTwo.id
+                && name.equals(userTwo.name)
+                && lastName.equals(userTwo.lastName)
+                && age == userTwo.age;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = name == null ? 0 : name.hashCode();
+        result += lastName == null ? 0 : lastName.hashCode();
+        result += age * 31;
+        result += id;
+        return result;
+    }
 }
